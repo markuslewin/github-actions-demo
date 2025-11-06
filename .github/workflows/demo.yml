@@ -6,3 +6,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install jq
+      - run: echo "{\"message\":\"Hello, World\"}" | jq '.message'
