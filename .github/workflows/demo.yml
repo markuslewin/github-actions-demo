@@ -4,6 +4,16 @@ on:
 jobs:
   demo:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.setter.outputs.test }}
     steps:
       - run: sudo apt-get install jq
       - run: echo "{\"message\":\"Hello, World\"}" | jq '.message'
+      - run: echo test="{\"message\":\"Hello, World\"}" >> "$GITHUB_OUTPUT"
+        id: setter
+  last:
+    runs-on: ubuntu-latest
+    needs: [demo]
+    steps:
+      - run: echo ${{ needs.demo.outputs.output1 }}
+    
