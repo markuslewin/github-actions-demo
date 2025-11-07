@@ -9,10 +9,10 @@ jobs:
     steps:
       - run: |
           JSON="{\"message\":\"Hello, World\"}"
-          sudo apt-get install jq
           MESSAGE=$(echo "$JSON" | jq '.message')
           echo "::add-mask::$MESSAGE"
           echo "test=$MESSAGE" >> "$GITHUB_OUTPUT"
+          echo "My secret: $MESSAGE"
         id: setter
   last:
     runs-on: ubuntu-latest
