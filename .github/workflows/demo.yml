@@ -7,9 +7,12 @@ jobs:
     outputs:
       output1: ${{ steps.setter.outputs.test }}
     steps:
-      # - run: sudo apt-get install jq
-      # - run: echo "{\"message\":\"Hello, World\"}" | jq '.message'
-      - run: echo test="{\"message\":\"Hello, World\"}" >> "$GITHUB_OUTPUT"
+      - run: |
+          JSON="{\"message\":\"Hello, World\"}"
+          sudo apt-get install jq
+          MESSAGE=$(echo "$JSON" | jq '.message')
+          echo "::add-mask::$MESSAGE"
+          echo "test=$MESSAGE" >> "$GITHUB_OUTPUT"
         id: setter
   last:
     runs-on: ubuntu-latest
